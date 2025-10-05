@@ -10,8 +10,12 @@ class ArticleResponse(BaseModel):
     title: str
     date_created: datetime
     last_edited: datetime
+    article_slug: str
     body: str | None = None
     model_config = ConfigDict(from_attributes=True)
+
+class ArticleListResponse(BaseModel):
+    articles: List[ArticleResponse]
 
 class ThoughtResponse(BaseModel):
     id: int
@@ -19,16 +23,24 @@ class ThoughtResponse(BaseModel):
     date_created: datetime = datetime.now()
     model_config = ConfigDict(from_attributes=True)
 
-class Project(BaseModel):
+class ThoughtListResponse(BaseModel):
+    thoughts: List[ThoughtResponse]
+
+class ProjectResponse(BaseModel):
     id: int
     title: str
     description: str
     link: str
     model_config = ConfigDict(from_attributes=True)
 
+class ProjectListResponse(BaseModel):
+    projects: List[ProjectResponse]
+
+
 
 class TimelineItem(BaseModel):
     date_created: datetime
+
 
 class TimelineArticleItem(TimelineItem):
     id: int
