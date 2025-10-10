@@ -25,6 +25,7 @@ class ThoughtResponse(BaseModel):
 
 class ThoughtListResponse(BaseModel):
     thoughts: List[ThoughtResponse]
+    model_config = ConfigDict(from_attributes=True)
 
 class ProjectResponse(BaseModel):
     id: int
@@ -40,6 +41,7 @@ class ProjectListResponse(BaseModel):
 
 class TimelineItem(BaseModel):
     date_created: datetime
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TimelineArticleItem(TimelineItem):
@@ -47,17 +49,22 @@ class TimelineArticleItem(TimelineItem):
     type: Literal["article_item"]
     title: str
     link: str
+    date_created: datetime
+
 
 class TimelineProjectItem(TimelineItem):
     id: int
     type: Literal["project_item"]
     title: str
     link: str
+    date_created: datetime
+
 
 class TimelineThoughtItem(TimelineItem):
     body: str
-    type: Literal["thought_item"]
+    model_config = ConfigDict(from_attributes=True)
+    date_created: datetime
 
 
-class TimelineResponse(TimelineItem):
+class TimelineResponse(BaseModel):
     items: List[TimelineArticleItem | TimelineProjectItem | TimelineThoughtItem]
