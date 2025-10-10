@@ -1,4 +1,3 @@
-from typing import List
 from http.client import HTTPException
 
 from fastapi import FastAPI, Depends
@@ -17,7 +16,7 @@ def ping():
 
 @app.get('/timeline', response_model=TimelineResponse)
 async def timeline(
-    timeline_service: TimelineService = Depends(TimelineService)
+    timeline_service: TimelineService = Depends(get_timeline_service)
 ) -> TimelineResponse:
 
     timelines = timeline_service.get_timelines()

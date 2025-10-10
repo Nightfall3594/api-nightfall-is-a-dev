@@ -2,12 +2,12 @@ from __future__ import annotations
 from typing import List
 
 from src.models.db import Thought
-from src.repos import ThoughtRepository
+from src.repos import ThoughtRepository, InMemoryThoughtRepository
 
 
 class ThoughtService:
 
-    def __init__(self, repository: ThoughtRepository):
+    def __init__(self, repository: ThoughtRepository = InMemoryThoughtRepository()):
         self._repository = repository
 
 
