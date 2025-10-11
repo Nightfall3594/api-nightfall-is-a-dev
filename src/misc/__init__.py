@@ -1,3 +1,3 @@
 from .timeline_factory import TimelineFactory
 
-__all__ = ['timeline_factory']
+__all__ = ['TimelineFactory']
