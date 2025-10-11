@@ -1,6 +1,7 @@
 from http.client import HTTPException
 
 from fastapi import FastAPI, Depends
+from starlette.middleware.cors import CORSMiddleware
 
 from src.misc import TimelineFactory
 from src.models.dto import *
@@ -8,6 +9,14 @@ from src.services import *
 
 app = FastAPI()
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get('/ping')
 def ping():
