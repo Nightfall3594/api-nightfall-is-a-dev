@@ -4,40 +4,49 @@ from typing import Literal, List
 
 from pydantic import BaseModel, ConfigDict
 
-class ArticleResponse(BaseModel):
+class BaseResponse(BaseModel):
+    date_created: datetime
+
+
+# Single-item responses
+class ArticleResponse(BaseResponse):
     id: int
     title: str
-    date_created: datetime
     last_edited: datetime
     article_slug: str
     body: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
-class ArticleListResponse(BaseModel):
-    articles: List[ArticleResponse]
 
-class ThoughtResponse(BaseModel):
+class ThoughtResponse(BaseResponse):
     id: int
     body: str
-    date_created: datetime = datetime.now()
     model_config = ConfigDict(from_attributes=True)
 
-class ThoughtListResponse(BaseModel):
-    thoughts: List[ThoughtResponse]
-    model_config = ConfigDict(from_attributes=True)
 
-class ProjectResponse(BaseModel):
+class ProjectResponse(BaseResponse):
     id: int
     title: str
     description: str
     link: str
     model_config = ConfigDict(from_attributes=True)
 
+
+# List Responses
+class ThoughtListResponse(BaseModel):
+    thoughts: List[ThoughtResponse]
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ArticleListResponse(BaseModel):
+    articles: List[ArticleResponse]
+
+
 class ProjectListResponse(BaseModel):
     projects: List[ProjectResponse]
 
 
-
+# Timeline Responses
 class TimelineItem(BaseModel):
     date_created: datetime
     model_config = ConfigDict(from_attributes=True)
