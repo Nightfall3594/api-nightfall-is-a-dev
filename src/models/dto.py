@@ -4,7 +4,6 @@ from typing import Literal, List
 
 from pydantic import BaseModel, ConfigDict
 
-
 class ArticleResponse(BaseModel):
     id: int
     title: str
@@ -46,24 +45,22 @@ class TimelineItem(BaseModel):
 
 class TimelineArticleItem(TimelineItem):
     id: int
-    type: Literal["article_item"]
+    type: Literal["article_item"] = "article_item"
     title: str
-    link: str
-    date_created: datetime
+    article_slug: str
 
 
 class TimelineProjectItem(TimelineItem):
     id: int
-    type: Literal["project_item"]
+    type: Literal["project_item"] = "project_item"
     title: str
     link: str
-    date_created: datetime
 
 
 class TimelineThoughtItem(TimelineItem):
+    id: int
+    type: Literal["thought_item"] = "thought_item"
     body: str
-    model_config = ConfigDict(from_attributes=True)
-    date_created: datetime
 
 
 class TimelineResponse(BaseModel):
