@@ -45,17 +45,14 @@ def get_test_db():
 
     thoughts = [
         Thought(
-            id=1,
             body="Simplicity in code often leads to better maintainability.",
             date_created=datetime.fromisoformat("2025-03-01T12:00:00+00:00"),
         ),
         Thought(
-            id=2,
             body="Sometimes, doing nothing is also a decision.",
             date_created=datetime.fromisoformat("2025-03-02T08:45:00+00:00"),
         ),
         Thought(
-            id=3,
             body="Learning is exponential when curiosity is sustained.",
             date_created=datetime.fromisoformat("2025-03-03T20:10:00+00:00"),
         ),
@@ -63,21 +60,18 @@ def get_test_db():
 
     projects = [
         Project(
-            id=1,
             title="Personal Portfolio",
             description="A simple portfolio website showcasing my projects and articles.",
             link="https://example.com/portfolio",
             date_created=datetime.fromisoformat("2025-01-05T14:00:00+00:00"),
         ),
         Project(
-            id=2,
             title="Task Tracker",
             description="A minimalistic web app to manage tasks using Flask and SQLite.",
             link="https://github.com/user/task-tracker",
             date_created=datetime.fromisoformat("2025-02-01T09:30:00+00:00"),
         ),
         Project(
-            id=3,
             title="API Playground",
             description="A RESTful API built with FastAPI demonstrating CRUD operations.",
             link="https://github.com/user/api-playground",
