@@ -6,6 +6,8 @@ from src.services import *
 from src.repos import *
 
 
+# TODO: Replace Depends() with generator expression
+
 def get_db():
     with SessionLocal() as session:
         yield session
@@ -13,20 +15,20 @@ def get_db():
 
 # callbacks for dependency injection
 def get_article_service():
-    return ArticleService(PostgresArticleRepository(session=Depends(get_db)))
+    return ArticleService(PostgresArticleRepository(next(get_db())))
 
 
 def get_project_service():
-    return ProjectService(PostgresProjectRepository(session=Depends(get_db)))
+    return ProjectService(PostgresProjectRepository(next(get_db())))
 
 
 def get_thought_service():
-    return ThoughtService(PostgresThoughtRepository(session=Depends(get_db)))
+    return ThoughtService(PostgresThoughtRepository(next(get_db())))
 
 
 def get_timeline_service():
     return TimelineService(
-        articles = PostgresArticleRepository(session=Depends(get_db)),
-        projects = PostgresProjectRepository(session=Depends(get_db)),
-        thoughts = PostgresThoughtRepository(session=Depends(get_db)),
+        articles = PostgresArticleRepository(next(get_db())),
+        projects = PostgresProjectRepository(next(get_db())),
+        thoughts = PostgresThoughtRepository(next(get_db())),
     )
