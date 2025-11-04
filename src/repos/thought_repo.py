@@ -4,6 +4,8 @@ from typing import List
 
 from src.models.db import Thought
 
+from sqlalchemy import Select
+
 
 class ThoughtRepository(ABC):
 
@@ -42,3 +44,19 @@ class InMemoryThoughtRepository(ThoughtRepository):
 
     def add(self, thought: Thought):
         self.thoughts.append(thought)
+
+
+class PostgresThoughtRepository(ThoughtRepository):
+
+    def __init__(self, session):
+        self._session = session
+
+
+    def get_all(self) -> List[Thought]:
+        query = Select(Thought).order_by(Thought.date_created.desc())
+        output = self._session.execute(query).scalars().all()
+        return output
+
+    def add(self, thought: Thought):
+        self._session.add(thought)
+        self._session.commit()

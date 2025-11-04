@@ -5,7 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from src.misc import TimelineFactory
 from src.models.dto import *
-from src.services import *
+from src.dependencies import *
 
 app = FastAPI()
 

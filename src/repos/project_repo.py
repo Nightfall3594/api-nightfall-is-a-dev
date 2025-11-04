@@ -6,6 +6,8 @@ from typing import List
 
 from src.models.db import Project
 
+from sqlalchemy import Select
+
 
 class ProjectRepository(ABC):
     @abstractmethod
@@ -59,3 +61,24 @@ class InMemoryProjectRepository(ProjectRepository):
 
     def get_by_title(self, title: str) -> Project | None:
         return next((p for p in self.projects if p.title == title), None)
+
+
+
+class PostgresProjectRepository(ProjectRepository):
+
+    def __init__(self, session):
+        self._session = session
+
+    def get_all(self) -> List[Project]:
+        query = Select(Project)
+        projects = self._session.execute(query).scalars().all()
+        return projects
+
+    def add(self, project: Project) -> None:
+        self._session.add(project)
+        self._session.commit()
+
+    def get_by_title(self, title: str) -> Project | None:
+        query = Select(Project).where(Project.title == title)
+        project = self._session.execute(query).scalars().first()
+        return project

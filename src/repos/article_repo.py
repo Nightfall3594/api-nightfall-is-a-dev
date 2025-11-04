@@ -4,7 +4,10 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import List
 
+from sqlalchemy import Select
+
 from src.models.db import Article
+
 
 class ArticleRepository(ABC):
     @abstractmethod
@@ -62,3 +65,22 @@ class InMemoryArticleRepository(ArticleRepository):
     def add(self, article: Article):
         self.articles.append(article)
 
+
+class PostgresArticleRepository(ArticleRepository):
+
+    def __init__(self, session):
+        self._session = session
+
+    def get_by_slug(self, slug) -> Article:
+        statement = Select(Article).where(Article.article_slug == slug)
+        result = self._session.execute(statement).scalars().one_or_none()
+        return result
+
+    def get_all(self, with_body=False) -> List[Article]:
+        statement = Select(Article)
+        result = self._session.execute(statement).scalars().all()
+        return result
+
+    def add(self, article: Article) -> None:
+        self._session.add(article)
+        self._session.commit()

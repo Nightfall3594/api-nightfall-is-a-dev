@@ -1,6 +1,6 @@
-from src.repos.article_repo import ArticleRepository, InMemoryArticleRepository
-from src.repos.project_repo import ProjectRepository, InMemoryProjectRepository
-from src.repos.thought_repo import ThoughtRepository, InMemoryThoughtRepository
+from src.repos.article_repo import *
+from src.repos.project_repo import *
+from src.repos.thought_repo import *
 
 
 __all__ = [
@@ -10,4 +10,7 @@ __all__ = [
     "ArticleRepository",
     "ProjectRepository",
     "ThoughtRepository",
+    "PostgresArticleRepository",
+    "PostgresProjectRepository",
+    "PostgresThoughtRepository"
 ]
