@@ -1,0 +1,6 @@
+.venv
+.idea
+.gitignore
+.env.example
+tests
+README.md
