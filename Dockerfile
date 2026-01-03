@@ -15,7 +15,7 @@ COPY . .
 
 EXPOSE 80
 
-CMD ["pipx", "run", "poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+CMD ["pipx", "run", "poetry", "run", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
 
 
 
