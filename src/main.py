@@ -1,7 +1,7 @@
-from http.client import HTTPException
 
 from fastapi import FastAPI, Depends
 from starlette.middleware.cors import CORSMiddleware
+from starlette.exceptions import HTTPException
 
 from src.misc import TimelineFactory
 from src.models.dto import *
